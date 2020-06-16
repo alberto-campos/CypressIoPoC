@@ -1,0 +1,16 @@
+{
+  "name": "slackautomation",
+  "version": "1.0.0",
+  "description": "poc for slack application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "slack-tcs",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^4.8.0",
+    "mocha": "^8.0.1",
+    "mochawesome": "^6.1.1"
+  }
+}

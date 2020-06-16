@@ -5,7 +5,7 @@ const loginPage = new loginPg()
 
 Cypress.Commands.add("slackLoggingIn", (userName, pwd) => {
   loginPage.getUsername().type(userName)
-  loginPage.getPassword().click({ force: true })
+  loginPage.getPassword().click({force: true })
   loginPage.getPassword().type(pwd)
   loginPage.SignInBtn().click({ force: true })
 })
@@ -72,10 +72,11 @@ Cypress.Commands.add("deleteMessage", () => {
 })
 
 Cypress.Commands.add("searchTeamMenu", (menuOption) => {
-  cy.get('button[data-qa="menu_item_button"]').contains(menuOption).click()
+  cy.get('button[data-qa="menu_item_button"]').contains(menuOption).click({ force: true })
 })
 
 Cypress.Commands.add("searchTeamSubMenu", (subMenuOption) => {
-  cy.contains(subMenuOption).should('be.visible').click()
+  cy.contains(subMenuOption).should('be.visible').click({ force: true })
 })
+
 

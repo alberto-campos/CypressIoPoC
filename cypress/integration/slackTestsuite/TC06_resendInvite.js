@@ -5,7 +5,7 @@ import adminPg from '../../support/pageObjects/adminPg'
 describe('Slack Regression',function(){
 
     before(function(){
-        cy.fixture('TC06').then(function(data){
+        cy.fixture('TC01').then(function(data){
         this.data = data    
         })
     })

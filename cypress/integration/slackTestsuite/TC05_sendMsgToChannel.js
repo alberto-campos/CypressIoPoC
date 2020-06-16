@@ -4,7 +4,7 @@ import channelPg from '../../support/pageObjects/channelPg'
 describe('Slack Regression',function(){
 
     before(function(){
-        cy.fixture('TC05').then(function(data){
+        cy.fixture('TC01').then(function(data){
         this.data = data    
         })
     })

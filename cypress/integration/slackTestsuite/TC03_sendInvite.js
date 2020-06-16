@@ -5,7 +5,7 @@ import slackHomePage from '../../support/pageObjects/slackHomePg'
 describe('Slack Regression',function(){
 
     before(function(){
-        cy.fixture('TC03').then(function(data){
+        cy.fixture('TC01').then(function(data){
         this.data = data    
         })
     })

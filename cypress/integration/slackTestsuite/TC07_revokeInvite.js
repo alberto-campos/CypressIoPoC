@@ -5,7 +5,7 @@ import adminPg from '../../support/pageObjects/adminPg'
 describe('Slack Regression',function(){
 
     before(function(){
-        cy.fixture('TC07').then(function(data){
+        cy.fixture('TC01').then(function(data){
         this.data = data    
         })
     })
@@ -38,10 +38,7 @@ describe('Slack Regression',function(){
         adminPage.getDeactivateConfirmationDialogHeader().contains('Deactivate').should('be.visible')
         adminPage.getDeactivateBtn().click()
         cy.wait(2000)
-        /*adminPage.getDeactivatedMsg().then((msgLocator =>{
-            expect(msgLocator.text().trim()).to.contain('Deactivated Lgontijo’s account')
-        }))*/
-
+      
         //Reactivate account again for next usage
         adminPage.getAdminMenuBtn().eq(0).should('be.visible').click()
         adminPage.getActivateAccountOption().click()

@@ -5,7 +5,7 @@ describe('Slack Regression',function(){
 
     //fetch test data
     before(function(){
-        cy.fixture('TC02').then(function(data){
+        cy.fixture('TC01').then(function(data){
         this.data = data    
         })
     })

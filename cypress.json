@@ -1,11 +1,11 @@
 {
-  "defaultCommandTimeout": 10000,
-  "pageLoadTimeout": 100000,
+  "defaultCommandTimeout": 40000,
+  "pageLoadTimeout": 150000,
   "chromeWebSecurity": false,
   "reporter" :"mochawesome",
   "env": {
-    "url1": "https://slacktest1-khh9826.slack.com/#/",
-    "url2": "https://slacktest2-global.slack.com/#/"
+    "url1": "https://slacktest1-khh9826.slack.com/",
+    "url2": "https://slacktest2-global.slack.com/"
   },
   "projectId": "36zsox"
 }

@@ -2,5 +2,8 @@
     "email" : "shweta.bet@tcs.com",
     "password" : "slacktest01_India",
     "user" : "b2",
-    "NumberOfUsers": "5"
+    "NumberOfUsers": "5",
+    "userForTC10" : "lgontijo+a10@slack-corp.com",
+    "userForResendInvite" : "lgontijo+gnnu3@slack-corp.com",
+    "userForRevokeInvite" : "lgontijo+b24@slack-corp.com"
 }

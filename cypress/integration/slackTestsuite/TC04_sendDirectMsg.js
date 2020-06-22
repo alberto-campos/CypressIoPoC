@@ -1,16 +1,25 @@
+/* 
+* TC 04 - Send Direct Messages -User sends a direct message to another user , edits the send message and deletes the sent message
+* TestData doesnt need reset.
+*/
 /// <reference types="cypress" />
 import messagePg from  '../../support/pageObjects/messagePg'
 import slackHomePg from '../../support/pageObjects/slackHomePg'
 
-describe('Slack Regression',function(){
+describe('TC04 Send Direct Messages',function(){
 
     before(function(){
         cy.fixture('TC01').then(function(data){
         this.data = data    
         })
+        cy.server()
+        cy.route({
+          url: 'https://slack.com/api/chat.delete',
+          method: 'GET'
+        }).as('deleteMsg')
     })
 
-    it('TC04 Send Direct Messages',function(){
+    it('Send Direct Messages',function(){
         const msgPg = new messagePg()
         const homePg = new slackHomePg()
 

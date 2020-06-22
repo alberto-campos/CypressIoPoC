@@ -1,4 +1,11 @@
+/**
+ * This class refers to general reusable functions not specific to any application.
+ */
 class helper {
+    /**
+      * Generates a five character alphanumberic random string
+      * @returns {String} result
+      */
     randomTextGenerator() {
         var result           = '';
         var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -9,6 +16,10 @@ class helper {
         return result;
     }  
 
+    /**
+      * Generates a five character alphanumberic random string
+      * @param {String} locator  - element for which this function will wait to be visible in dom
+      */
     waitForElementToBeVisible(elementLocator) {
       var waitForEl = function(selector, callback, count) {
         if (jQuery(selector).length) {

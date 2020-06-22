@@ -1,8 +1,10 @@
-//This class refers to objects of Landing page for Slack login
+/**
+ * This class refers to objects of Landing page for Slack login
+ */
 class loginPg{
     /**
      * returns the element locator for the email field
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getUsername(){
         return cy.get('#email')
@@ -10,7 +12,7 @@ class loginPg{
 
     /**
      * returns the element locator for the password field
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getPassword(){
         return cy.get('#password')
@@ -18,7 +20,7 @@ class loginPg{
 
     /**
      * returns the element locator for the Sign In button
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     SignInBtn(){
         return cy.get('#signin_btn')

@@ -1,8 +1,10 @@
-//This page refers to Account Settings related objects
+/**
+ * This class refers to Account Settings related objects
+ */
 class acctSettingsPg{
     /**
      * returns a locator for 'expand' button related to change password
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getChangePwdExpandBtn(){
      return cy.get('#change_password > .accordion_expand')
@@ -10,7 +12,7 @@ class acctSettingsPg{
 
     /**
      * returns a locator for 'old password' textbox
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getOldPwdInput(){
         return cy.get('input#old_password')
@@ -18,7 +20,7 @@ class acctSettingsPg{
 
     /**
      * returns   locator for 'new password' textbox
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getNewPwdInput(){
         return cy.get('input#password')
@@ -26,7 +28,7 @@ class acctSettingsPg{
 
     /**
      * returns a locator for 'Save password' button
-     * @return {elementlocator}
+     *@returns {String} element locator
      */
     getSavePwdBtn(){
         return cy.get('#change_password > .accordion_subsection > .col > :nth-child(5) > .btn')
@@ -34,7 +36,7 @@ class acctSettingsPg{
 
     /**
      * returns a locator for error text which is displayed when user enters identical passwords.
-     * @return {elementlocator}
+     *@returns {String} element locator
      */
     getPwdIdenticalError(){
         return cy.get('.alert')
@@ -42,7 +44,7 @@ class acctSettingsPg{
     
     /**
      * returns a locator for toggle button for Menu 
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getToggleMenuOnAcctSettings(){
         return cy.get('#menu_toggle')
@@ -50,7 +52,7 @@ class acctSettingsPg{
 
      /**
      * returns a locator for link 'back to slack'
-     * @return {elementlocator}
+     * @returns {String} element locator
      */
     getBackToSlacklink(){
         return cy.get('.primary_nav > :nth-child(2) > a')

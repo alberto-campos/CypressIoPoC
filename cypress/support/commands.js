@@ -1,3 +1,6 @@
+/**
+ * This class refers to reusable functions specific to Slack application
+ */
 import messagePg from  '../support/pageObjects/messagePg'
 import loginPg from  '../support/pageObjects/loginPg'
 import slackHomePg from '../support/pageObjects/slackHomePg'
@@ -15,8 +18,8 @@ const helperPg = new helper()
 
   /**
    * Login into slack application
-   * @param {string} userName - valid userName of slack.
-   * @param {string} pwd - valid password for the user.
+   * @param {String} userName - valid userName of slack.
+   * @param {String} pwd - valid password for the user.
    */
     Cypress.Commands.add("slackLoggingIn", (userName, pwd) => {
       loginPage.getUsername().type(userName)
@@ -27,7 +30,7 @@ const helperPg = new helper()
 
   /**
    * Search and Select User for Direct Messaages
-   * @param {string} user - user to be searched
+   * @param {String} user - user to be searched
    */
     Cypress.Commands.add("searchAndSelectUser", (user) => {
       cy.get('.ReactVirtualized__Grid__innerScrollContainer').find('.p-dm_browser_modal__option').each(($el,index, $list)=>{
@@ -89,7 +92,7 @@ const helperPg = new helper()
 
   /**
    * Searches team menu with given menuoption and click on it.
-   * * @param {string} menuOption - menu item to be searched in Team menu.
+   * @param {String} menuOption - menu item to be searched in Team menu.
    */
     Cypress.Commands.add("searchTeamMenu", (menuOption) => {
       homePg.getTeamMenuItems().contains(menuOption).click({ force: true })
@@ -98,7 +101,7 @@ const helperPg = new helper()
   /**
    * Searches team's submenu with given sub menu text and click on it.
    * Submenus open a new link in new window, which is handled in this function by opening them in the same original window
-   * * @param {string} subMenuOption - sub menu item to be searched in Team's main menu.
+   * * @param {String} subMenuOption - sub menu item to be searched in Team's main menu.
    */
     Cypress.Commands.add("searchTeamSubMenu", (subMenuOption) => {
       homePg.getTeamSubMenuItems().each(($el, index, $list) => {
@@ -112,8 +115,8 @@ const helperPg = new helper()
 
   /**
    * selects the member account type either 'Full Member' or 'Workspace Admin' for given user.
-   *  @param {string} member - member whose account type needs to be changed.
-   *  @param {string} acctType - account type 'Full member' or 'workspace admin'
+   *  @param {String} member - member whose account type needs to be changed.
+   *  @param {String} acctType - account type 'Full member' or 'workspace admin'
    */
     Cypress.Commands.add("selectMemberAcctType", (member,acctType) => {
       adminPage.getMemberEmailLocator().then(function($memberEmail){
@@ -150,7 +153,7 @@ const helperPg = new helper()
 
   /**
    * Deletes the given channel.
-   *  @param {string} channelName - channel to be deleted
+   * @param {String} channelName - channel to be deleted
    */
   Cypress.Commands.add("deleteChannel", (channelName) => {
         var channelLocator = "span[data-qa='channel_sidebar_name_"+channelName+"']"

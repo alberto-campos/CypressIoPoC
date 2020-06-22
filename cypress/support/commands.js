@@ -83,8 +83,7 @@ const helperPg = new helper()
             msgToDelete = deleteMsg.text()
         })
         msgPg.getDeleteBtn().click() //click on delete message     
-        //cy.wait(2000)
-        cy.wait('@deleteMsg')
+        cy.wait(2000)
         msgPg.getMostRecentMsg().then(function(msgLocator){
             expect(msgLocator.text()).to.not.contain(msgToDelete)
         })

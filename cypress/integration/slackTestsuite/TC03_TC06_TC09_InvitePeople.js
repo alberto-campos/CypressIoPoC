@@ -23,7 +23,7 @@ describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function()
         })
     })
 
-    /*it('Send Invite',function(){
+    it('Send Invite',function(){
         //Login into Slack
         cy.visit(Cypress.env('url1'))
         cy.slackLoggingIn(this.data.email,this.data.password)
@@ -94,10 +94,9 @@ describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function()
                 adminPage.getResendInvitationOption().click()
             }
         })
-    })*/
+    })
 
     it('revoke Invite',function(){
-
         //Login into Slack
         cy.visit(Cypress.env('url1'))
         cy.slackLoggingIn(this.data.email,this.data.password)
@@ -112,25 +111,20 @@ describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function()
             expect($eleHeader.text().trim()).to.contain('Manage members')
         }))     
 
-        
         //search memeber
         adminPage.getAdminMemberSrchInput().click().type(this.data.userForRevokeInvite)
         helperPg.waitForElementToBeVisible(adminPage.getAdminMemberTblMenuBtn().eq(0))
-        adminPage.getAdminMemberTblMenuBtn().eq(0).should('be.visible').click()
+        adminPage.getAdminMemberTblMenuBtn().eq(0).click()
         adminPage.getRevokeInvitationOption().click()
 
         //verify if Deactivate member? dialogues is visible
         adminPage.getDeactivateConfirmationDialogHeader().contains('Deactivate').should('be.visible')
         adminPage.getDeactivateBtn().click()   
-        
-       /*cy.get('.p-admin_member_table__row__display_name_and_email').each(($el,index, $list)=>{
-         if($el.text().includes(this.data.userForRevokeInvite)){
-
-         }*/
     })
 
     after(function(){
-       //Reactivate account again for next usage of Revoke Invitation test case
+         //Reactivate account again for next usage of Revoke Invitation test case
+         cy.wait(2000)
          adminPage.getDeactivateConfirmationDialogHeader().should('not.be.visible')
          cy.get('.c-toast_wrapper').should('not.be.visible')
          helperPg.waitForElementToBeVisible(adminPage.getAdminMemberTblMenuBtn().eq(0))

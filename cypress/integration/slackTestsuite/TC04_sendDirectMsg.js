@@ -12,11 +12,6 @@ describe('TC04 Send Direct Messages',function(){
         cy.fixture('TC01').then(function(data){
         this.data = data    
         })
-        cy.server()
-        cy.route({
-          url: 'https://slack.com/api/chat.delete',
-          method: 'GET'
-        }).as('deleteMsg')
     })
 
     it('Send Direct Messages',function(){

@@ -5,7 +5,7 @@
 /// <reference types="cypress" />
 import slackHomePg from '../../support/pageObjects/slackHomePg'
 import statusPg from '../../support/pageObjects/statusPg'
-
+import loginPg from '../../support/pageObjects/loginPg'
 describe('TC08 Set and Clear Status',function(){
 
     before(function(){
@@ -17,35 +17,36 @@ describe('TC08 Set and Clear Status',function(){
     it('Set and Clear Status',function(){
         const homePg = new slackHomePg()
         const statusPage = new statusPg()
+        const loginPage = new loginPg()
 
         //Login into Slack
         cy.visit(Cypress.env('url1'))
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
 
         //Team Menu Page
-        homePg.getTeamHeaderMenu().click()
-        statusPage.getTeamMenuStatus().click()
+        homePg.teamHeaderMenu.click()
+        statusPage.teamMenuStatus.click()
 
         //Verify the content/web elements of "Set a Status" dialog box
-        statusPage.getSetStatusDialogHeader().then(function($eleHeader){
+        statusPage.statusDialogHeader.then(function($eleHeader){
             expect($eleHeader.text()).to.contain('Set a status')
         })
-        statusPage.getWhatsYourStatus().should('be.visible')
+        statusPage.whatsYourStatus.should('be.visible')
 
         //Set Status - In a meeting for 4 hours
-        statusPage.getStatus_InAMeeting().contains('In a meeting').click()
-        statusPage.getSelectDurationBtn().click()
-        statusPage.getSelectDurationList().contains('4 hours').click()
-        statusPage.getSaveStatusBtn().click()
+        statusPage.status_InAMeeting.contains('In a meeting').click()
+        statusPage.selectDurationBtn.click()
+        statusPage.selectDurationList.contains('4 hours').click()
+        statusPage.saveStatusBtn.click()
 
         //verify the user calender tooltip icon & its text
-        statusPage.getCalenderIcon().should('be.visible').trigger('mouseover')
-        statusPage.getStatusToolTip().contains('In a meeting').should('be.visible')
+        statusPage.calenderIcon.should('be.visible').trigger('mouseover')
+        statusPage.statusToolTip.contains('In a meeting').should('be.visible')
 
         //Clear Status
-        homePg.getTeamHeaderMenu().click()
-        cy.searchTeamMenu('Clear status')
-        statusPage.getCalenderIcon().should('not.be.visible')
+        homePg.teamHeaderMenu.click()
+        homePg.searchTeamMenu('Clear status')
+        statusPage.calenderIcon.should('not.be.visible')
 
     })
 })

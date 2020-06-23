@@ -1,12 +1,15 @@
 /**
  * This class refers to Sign out page of Slack Application
  */
-class signOutPg{
+
+import baseTest from '../baseTest'
+
+class signOutPg extends baseTest{
     /**
      * returns a locator for entire help page displayed
      * @returns {String} elementlocator
      */
-    getEntireContent(){
+    get entireContent(){
         return cy.get('body')
     }
 
@@ -14,7 +17,7 @@ class signOutPg{
      * returns a link locator for Sign In again
      * @returns {String} elementlocator
      */
-    getSignInAgainLink(){
+    get signInAgainLink(){
         return cy.get('a[data-qa="sign_back_in"]').contains('Sign In Again')
     }
 }

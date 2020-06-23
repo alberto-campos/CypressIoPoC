@@ -1,7 +1,11 @@
 /**
- * This class refers to general reusable functions not specific to any application.
+ * This is the base page that all other pages extend from. This allows you to write functions like
+open(path) which are necessary for each page object. Therefore, if you are writing a function
+that all page objects will need to use, write it in this class
  */
-class helper {
+
+export default class baseTest {
+    
     /**
       * Generates a five character alphanumberic random string
       * @returns {String} result
@@ -15,6 +19,4 @@ class helper {
         }
         return result;
     }  
-
-}//class helper ends
-export default helper;
+}

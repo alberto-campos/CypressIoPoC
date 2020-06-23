@@ -1,12 +1,13 @@
 /**
  * This class refers to objects relevant to Member Status changes
  */
-class statusPg{
+import baseTest from '../baseTest'
+class statusPg extends baseTest{
     /**
      * returns a locator for team menu status
      * @returns {String} element locator
      */
-    getTeamMenuStatus(){
+    get teamMenuStatus(){
         return cy.get('button[data-qa="main-menu-custom-status-item"]')
     }
 
@@ -14,7 +15,7 @@ class statusPg{
      * returns a locator for Set Status Dialog header text
      * @returns {String} element locator
      */
-    getSetStatusDialogHeader(){
+    get statusDialogHeader(){
         return cy.get('.c-sk-modal_title_bar__text>h1')
     }
 
@@ -22,7 +23,7 @@ class statusPg{
      * returns a locator for Status input box
      * @returns {String} element locator
      */
-    getWhatsYourStatus(){
+    get whatsYourStatus(){
         return cy.get('.p-custom_status_modal__input')
     }
 
@@ -30,7 +31,7 @@ class statusPg{
      * returns a locator for status with 'in A Meeting'
      * @returns {String} element locator
      */
-    getStatus_InAMeeting(){
+    get status_InAMeeting(){
         return cy.get('.p-custom_status_modal__preset_text')
     }
 
@@ -38,7 +39,7 @@ class statusPg{
      * returns a locator for Select Duration button
      * @returns {String} element locator
      */
-    getSelectDurationBtn(){
+    get selectDurationBtn(){
         return cy.get('div.c-select_button__content+i')
     }
 
@@ -46,7 +47,7 @@ class statusPg{
      * returns a locator for Select Duration options.
      * @returns {String} element locator
      */
-    getSelectDurationList(){
+    get selectDurationList(){
         return cy.get('.c-select_options_list__option_label')
     }
 
@@ -54,7 +55,7 @@ class statusPg{
      * returns a locator for Save Status button
      * @returns {String} element locator
      */
-    getSaveStatusBtn(){
+    get saveStatusBtn(){
         return cy.get('.c-button--primary')
     }
 
@@ -62,7 +63,7 @@ class statusPg{
      * returns a locator for calender icon
      * @returns {String} element locator
      */
-    getCalenderIcon(){
+    get calenderIcon(){
         return cy.get('.p-ia__sidebar_header__user > .c-custom_status > .c-emoji > img')
     }
 
@@ -70,7 +71,7 @@ class statusPg{
      * returns a locator for Status Tool Tip
      * @returns {String} element locator
      */
-    getStatusToolTip(){
+    get statusToolTip(){
         return cy.get('span.c-custom_status__tooltip')
     }
 }

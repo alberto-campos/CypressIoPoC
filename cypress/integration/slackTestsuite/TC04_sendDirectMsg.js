@@ -5,6 +5,7 @@
 /// <reference types="cypress" />
 import messagePg from  '../../support/pageObjects/messagePg'
 import slackHomePg from '../../support/pageObjects/slackHomePg'
+import loginPg from '../../support/pageObjects/loginPg'
 
 describe('TC04 Send Direct Messages',function(){
 
@@ -17,28 +18,29 @@ describe('TC04 Send Direct Messages',function(){
     it('Send Direct Messages',function(){
         const msgPg = new messagePg()
         const homePg = new slackHomePg()
+        const loginPage = new loginPg()
 
         //Login into Slack
         cy.visit(Cypress.env('url1'))
-        cy.slackLoggingIn(this.data.email,this.data.password)
-
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
+        
         //Click on Direct msg + icon
-        homePg.getDirectMsgIcon().click()
+        homePg.directMsgIcon.click()
 
         //Direct Messages Dialog - send message
-        msgPg.getDirectMessagesHeading().should('contain.text','Direct Messages')
-        msgPg.getFindUserInput().type(this.data.user)
+        msgPg.directMessagesHeading.should('contain.text','Direct Messages')
+        msgPg.findUserInput.type(this.data.user)
         cy.wait(2000)
-        cy.searchAndSelectUser(this.data.user)
-        msgPg.getGObtn().click()
-        cy.sendMessage()
+        msgPg.searchAndSelectUser(this.data.user)
+        msgPg.goBtn.click()
+        msgPg.sendMessage()
         cy.wait(2000)
 
         //Edit message
-        cy.editMessage()
+        msgPg.editMessage()
        
         //delete message
-        cy.deleteMessage()
+        msgPg.deleteMessage()
     })
 }
 )

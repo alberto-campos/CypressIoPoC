@@ -9,11 +9,13 @@ import invitePeoplePg from '../../support/pageObjects/invitePeoplePg'
 import slackHomePage from '../../support/pageObjects/slackHomePg'
 import adminPg from '../../support/pageObjects/adminPg'
 import helper from '../../support/helper'
+import loginPg from '../../support/pageObjects/loginPg'
 
+const loginPage = new loginPg()
 const invitePg = new invitePeoplePg()
 const homePg = new slackHomePage()
 const adminPage = new adminPg()
-const helperPg = new helper()
+const helpUtil = new helper()
 
 describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function(){
 
@@ -26,61 +28,59 @@ describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function()
     it('Send Invite',function(){
         //Login into Slack
         cy.visit(Cypress.env('url1'))
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
 
         //Invite People
-        homePg.getShowLessLink().click() 
-        homePg.getInvitePeopleLink().click()
-        homePg.getMembersLink().click()
+        homePg.showLessLink.click() 
+        homePg.invitePeopleLink.click()
+        homePg.membersLink.click()
             
         //Verify the "Invite people to" dialog box content/web elements
-        invitePg.getInviteeEmailInput1().should('be.visible')
-        invitePg.getSendInvitationsBtn().should('be.visible')
+        invitePg.inviteeEmailInput1.should('be.visible')
+        invitePg.sendInvitationsBtn.should('be.visible')
 
         //Send Invite to unique email addresses
-        invitePg.getAddManyAtOnceLink().click()  
+        invitePg.addManyAtOnceLink.click()  
         for (var i=0;i<this.data.NumberOfUsers;i++){
-              //cy.myproject.randomTextGenerator().then(function(returned_value){
-              var emailID = "lgontijo+"+helperPg.randomTextGenerator()+"@slack-corp.com"  //appending msg with random value
-              invitePg.getBulkInviteInput().type(emailID)
-              invitePg.getBulkInviteInput().type(',')
-            //})
+              var emailID = "lgontijo+"+helpUtil.randomTextGenerator()+"@slack-corp.com"  //appending msg with random value
+              invitePg.bulkInviteInput.type(emailID)
+              invitePg.bulkInviteInput.type(',')
         }
         
-        invitePg.getAddInviteesBtn().click()
-        invitePg.getSendInvitationsBtn().click()
+        invitePg.addInviteesBtn.click()
+        invitePg.sendInvitationsBtn.click()
 
         //Validate invitations sent text
-        invitePg.getInvitesSentMsg().then(function ($msg){
+        invitePg.invitesSentMsg.then(function ($msg){
           expect($msg.text().trim()).to.contain("You’ve invited "+this.data.NumberOfUsers+" Members to your workspace")
         })
-        invitePg.getDoneBtn().click()
+        invitePg.doneBtn.click()
     })
 
     it('resend Invite',function(){
         //Login into Slack
         var url = Cypress.env('url1')
         cy.visit(url)
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
 
         // Team Menu Page
-        homePg.getTeamHeaderMenu().click()
-        cy.searchTeamMenu('Settings & administration')
-        cy.searchTeamSubMenu('Manage members')
+        homePg.teamHeaderMenu.click()
+        homePg.searchTeamMenu('Settings & administration')
+        homePg.searchTeamSubMenu('Manage members')
 
         // Admin- manage members page
-        adminPage.getManageMembersHeader().then(($eleHeader => {
+        adminPage.manageMembersHeader.then(($eleHeader => {
             expect($eleHeader.text().trim()).to.contain('Manage members')
         }))     
 
         //Search member to resend invite
-        adminPage.getAdminMemberSrchInput().click().type(this.data.userForResendInvite)
-        cy.get('c-table_view_spinner_overlay',{timeout: 10000}).should('not.be.visible')
-        adminPage.getMemberEmailLocator().then(function($memberEmail){
+        adminPage.adminMemberSrchInput.click().type(this.data.userForResendInvite)
+        adminPage.tableViewLoadingSpinner.should('not.be.visible')
+        adminPage.memberEmailLocator.then(function($memberEmail){
             const memberMail = $memberEmail.text()
             if(memberMail.includes(this.data.userForResendInvite)){
-                adminPage.getAdminMemberTblMenuBtn().click()
-                adminPage.getAdminMemberTblMenuOptions().each(($el, index, $list) => {  //Verify options
+                adminPage.adminMemberTblBtn.click()
+                adminPage.adminMemberTblMenuOptions.each(($el, index, $list) => {  //Verify options
                     var menuoption=$el.text()
                     if(index==0){
                     expect(menuoption.trim()).to.contain('Edit info')}
@@ -91,7 +91,7 @@ describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function()
                     if(index==3){
                     expect(menuoption.trim()).to.contain('Revoke invitation')}
                 })
-                adminPage.getResendInvitationOption().click()
+                adminPage.resendInvitationOption.click()
             }
         })
     })
@@ -99,36 +99,37 @@ describe('TC03 Send invite ,TC06 resend invite , TC 07 revoke invite',function()
     it('revoke Invite',function(){
         //Login into Slack
         cy.visit(Cypress.env('url1'))
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
 
         // Team Menu Page
-        homePg.getTeamHeaderMenu().click()
-        cy.searchTeamMenu('Settings & administration')
-        cy.searchTeamSubMenu('Manage members')
+        homePg.teamHeaderMenu.click()
+        homePg.searchTeamMenu('Settings & administration')
+        homePg.searchTeamSubMenu('Manage members')
 
         // Admin- manage members page
-        adminPage.getManageMembersHeader().then(($eleHeader => {
+        adminPage.manageMembersHeader.then(($eleHeader => {
             expect($eleHeader.text().trim()).to.contain('Manage members')
         }))     
 
         //search memeber
-        adminPage.getAdminMemberSrchInput().click().type(this.data.userForRevokeInvite)
-        helperPg.waitForElementToBeVisible(adminPage.getAdminMemberTblMenuBtn().eq(0))
-        adminPage.getAdminMemberTblMenuBtn().eq(0).click()
-        adminPage.getRevokeInvitationOption().click()
+        adminPage.adminMemberSrchInput.click().type(this.data.userForRevokeInvite)
+        cy.wait(2000)
+        adminPage.adminMemberTblBtn.eq(0).click()
+        adminPage.revokeInvitationOption.click()
 
         //verify if Deactivate member? dialogues is visible
-        adminPage.getDeactivateConfirmationDialogHeader().contains('Deactivate').should('be.visible')
-        adminPage.getDeactivateBtn().click()   
+        adminPage.deactivateConfirmationDialogHeader.contains('Deactivate').should('be.visible')
+        adminPage.deactivateBtn.click()   
+
+        //Reactivate account again for next usage of Revoke Invitation test case
+        cy.wait(2000)
+        adminPage.deactivateConfirmationDialogHeader.should('not.be.visible')
+        cy.waitForElementToBeVisible(adminPage.adminMemberTblBtn.eq(0))
+        adminPage.adminMemberTblBtn.eq(0).should('be.visible').click()
+        adminPage.activateAccountOption.click()
     })
 
-    after(function(){
-         //Reactivate account again for next usage of Revoke Invitation test case
-         cy.wait(2000)
-         adminPage.getDeactivateConfirmationDialogHeader().should('not.be.visible')
-         cy.get('.c-toast_wrapper').should('not.be.visible')
-         helperPg.waitForElementToBeVisible(adminPage.getAdminMemberTblMenuBtn().eq(0))
-         adminPage.getAdminMemberTblMenuBtn().eq(0).should('be.visible').click()
-         adminPage.getActivateAccountOption().click()
-    })
+   /*after(function(){
+         
+    })*/
 })

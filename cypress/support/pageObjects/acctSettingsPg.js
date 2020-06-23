@@ -1,12 +1,13 @@
+import baseTest from '../baseTest'
 /**
  * This class refers to Account Settings related objects
  */
-class acctSettingsPg{
+ class acctSettingsPg extends baseTest{
     /**
      * returns a locator for 'expand' button related to change password
      * @returns {String} element locator
      */
-    getChangePwdExpandBtn(){
+    get changePwdExpandBtn(){
      return cy.get('#change_password > .accordion_expand')
     }
 
@@ -14,7 +15,7 @@ class acctSettingsPg{
      * returns a locator for 'old password' textbox
      * @returns {String} element locator
      */
-    getOldPwdInput(){
+    get oldPwdInput(){
         return cy.get('input#old_password')
     }
 
@@ -22,7 +23,7 @@ class acctSettingsPg{
      * returns   locator for 'new password' textbox
      * @returns {String} element locator
      */
-    getNewPwdInput(){
+    get newPwdInput(){
         return cy.get('input#password')
     }
 
@@ -30,7 +31,7 @@ class acctSettingsPg{
      * returns a locator for 'Save password' button
      *@returns {String} element locator
      */
-    getSavePwdBtn(){
+    get savePwdBtn(){
         return cy.get('#change_password > .accordion_subsection > .col > :nth-child(5) > .btn')
     }
 
@@ -38,7 +39,7 @@ class acctSettingsPg{
      * returns a locator for error text which is displayed when user enters identical passwords.
      *@returns {String} element locator
      */
-    getPwdIdenticalError(){
+    get pwdIdenticalError(){
         return cy.get('.alert')
     }
     
@@ -46,7 +47,7 @@ class acctSettingsPg{
      * returns a locator for toggle button for Menu 
      * @returns {String} element locator
      */
-    getToggleMenuOnAcctSettings(){
+    get toggleMenuOnAcctSettings(){
         return cy.get('#menu_toggle')
     }
 
@@ -54,8 +55,7 @@ class acctSettingsPg{
      * returns a locator for link 'back to slack'
      * @returns {String} element locator
      */
-    getBackToSlacklink(){
+    get backToSlacklink(){
         return cy.get('.primary_nav > :nth-child(2) > a')
     }
-}
-export default acctSettingsPg;
+} export default acctSettingsPg;

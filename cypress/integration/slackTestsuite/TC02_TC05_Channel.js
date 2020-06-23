@@ -5,10 +5,15 @@
 */
 /// <reference types="cypress" />
 import channelPg from '../../support/pageObjects/channelPg'
+import messagePg from '../../support/pageObjects/messagePg'
+import loginPg from '../../support/pageObjects/loginPg'
+import helperPg from '../../support/helper'
 import helper from '../../support/helper'
 
+const loginPage = new loginPg()
 const channelPage = new channelPg()
-const helperPg = new helper()
+const msgPg = new messagePg()
+const helpUtil = new helper()
 var channelName
 
 describe('TC02 Create New Channel, TC05 send Messages to channel',function(){    
@@ -19,60 +24,61 @@ describe('TC02 Create New Channel, TC05 send Messages to channel',function(){
     })
 
     it('Create New Channel',function(){
-
         cy.visit(Cypress.env('url1'))
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
+        
         //Create New Channel
-        channelPage.addChannelsPlusIcon().click()
-        channelPage.getCreateChannel().click()
+        channelPage.addChannelsPlusIcon.click()
+        channelPage.createChannel.click()
 
         //verify the content of Create Channel dialog
-        channelPage.getChannelNameTxtbox().should('be.visible')
-        channelPage.getChannelDescriptionTxtbox().should('be.visible')
-        channelPage.CreateBtn().should('be.visible')
+        channelPage.channelNameTxtbox.should('be.visible')
+        channelPage.channelDescriptionTxtbox.should('be.visible')
+        channelPage.createBtn.should('be.visible')
 
         //Enter more than 80 characters in the channel name and verify the error message displayed.
-        channelPage.getChannelNameTxtbox().type('entermorethan80charactersinthechannelnameandverifytheerrormessagedisplayedelsereport')
+        channelPage.channelNameTxtbox.type('entermorethan80charactersinthechannelnameandverifytheerrormessagedisplayedelsereport')
         //assert error text correctly displayed
-        channelPage.getChannelNameInputError()
+        channelPage.channelNameInputError
                 .should('have.contain','Channel names can’t be longer than 80 characters.')
                 .and('be.visible')
 
         //Create new channel
-        channelName = "testchannel"+helperPg.randomTextGenerator()
-        channelPage.getChannelNameTxtbox().clear().type(channelName)
-        
-        channelPage.getChannelDescriptionTxtbox().type('This is an automated test channel')
-        channelPage.CreateBtn().click()
+        channelName = "testchannel"+helpUtil.randomTextGenerator()
+        channelPage.channelNameTxtbox.clear().type(channelName)
+        channelPage.channelDescriptionTxtbox.type('This is an automated test channel')
+        channelPage.createBtn.click()
 
         //Add People dialog
-        channelPage.getAddPeopleHeading().should('have.contain','Add people')
-        channelPage.getAddPeopleInput().should('be.visible').type('Luiz')
-        cy.wait(2000)
-        channelPage.getAddPeopleInput().type('{downarrow}')
-        channelPage.getAddPeopleInput().type('{downarrow}')
-        channelPage.getAddPeopleInput().type('{enter}')
-        channelPage.getDoneBtn().click()
-        cy.wait(2000)
+        channelPage.addPeopleHeading.should('have.contain','Add people')
+        channelPage.addPeopleInput.should('be.visible').type('Luiz')
+        channelPage.loadingStatusMsg.should('not.be.visible')
+        channelPage.addPeopleInput.type('{downarrow}')
+        channelPage.addPeopleInput.type('{downarrow}')
+        channelPage.addPeopleInput.type('{enter}')
+        channelPage.doneBtn.click()
+        channelPage.doneBtn.should('not.be.visible')
+        cy.wait(1000)
+        msgPg.mostRecentMsg.invoke('text').then((text => {
+            expect(text.trim()).to.contain('was added to #'+channelName+' by Shweta Bet.')
+        }))
     })
 
     it('Sending Messages to Channel',function(){
         cy.visit(Cypress.env('url1'))
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
         //Click on any channel from the list of existing channels
-        channelPage.getWelcomeChannel().click()
-        cy.sendMessage()
+        channelPage.welcomeChannel.click()
+        msgPg.sendMessage()
         cy.wait(2000)
-
         //Edit message
-        cy.editMessage()
-       
+        msgPg.editMessage()
         //delete message
-        cy.deleteMessage()
+        msgPg.deleteMessage()
     })
 
     after(function(){
         //Delete the channel that is created above as a part of data cleaning
-        cy.deleteChannel(channelName)
+        channelPage.deleteChannel(channelName)
     })
 })

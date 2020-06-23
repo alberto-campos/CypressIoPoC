@@ -1,12 +1,14 @@
 /**
  * This class refers to objects of 'Invite People' functionality
  */
-class invitePeoplePg{
+import baseTest from '../baseTest'
+
+class invitePeoplePg extends baseTest{
     /**
      * returns a locator for 'email' input box of member to be invited
      * @returns {String} element locator
      */
-    getInviteeEmailInput1(){
+    get inviteeEmailInput1(){
         return cy.get('#invite_modal_email_0')
     }
 
@@ -14,7 +16,7 @@ class invitePeoplePg{
      * returns a locator for 'email' input box of member to be invited
      * @returns {String} element locator
      */
-    getInviteeEmailInput2(){
+    get inviteeEmailInput2(){
         return cy.get('#invite_modal_email_1')
     }
 
@@ -22,7 +24,7 @@ class invitePeoplePg{
      * returns a locator for 'Add Invitees' button
      * @returns {String} element locator
      */
-    getAddInviteesBtn(){
+    get addInviteesBtn(){
         return cy.contains('.c-button--primary', 'Add Invitees', { timeout: 10000})
     }
 
@@ -30,7 +32,7 @@ class invitePeoplePg{
      * returns a locator for 'Send Invitation' button
      * @returns {String} element locator
      */
-    getSendInvitationsBtn(){
+    get sendInvitationsBtn(){
         //return cy.get('.c-button--primary')
         return cy.contains('.c-button--primary', 'Send Invitations', { timeout: 10000})
     }
@@ -39,7 +41,7 @@ class invitePeoplePg{
      * returns a locator for 'Add another' link on Invite Members dialogue.
      * @returns {String} element locator
      */
-    getAddAnotherEmailLink(){
+    get addAnotherEmailLink(){
         return cy.get('[data-qa="invite_modal_add_row_button"]')
     }
 
@@ -47,7 +49,7 @@ class invitePeoplePg{
      * returns a locator for 'Add many at once' link on Invite Members dialogue.
      * @returns {String} element locator
      */
-    getAddManyAtOnceLink(){
+    get addManyAtOnceLink(){
         return cy.get('[data-qa="invite_modal_bulk_invite_button"]')
     }
 
@@ -55,7 +57,7 @@ class invitePeoplePg{
      * returns a locator for 'Enter multiple email addresses' input box
      * @returns {String} element locator
      */
-    getBulkInviteInput(){
+    get bulkInviteInput(){
         return cy.get('#bulk-invites-input')
     }
 
@@ -63,7 +65,7 @@ class invitePeoplePg{
      * returns a locator for message displayed when Invitation is sent.
      * @returns {String} element locator
      */
-    getInvitesSentMsg(){
+    get invitesSentMsg(){
         return cy.get('[data-qa="invite_modal_invites_sent_subheader_copy"]')   
     }
 
@@ -71,7 +73,7 @@ class invitePeoplePg{
      * returns a locator for 'Done' button
      * @returns {String} element locator
      */
-    getDoneBtn(){
+    get doneBtn(){
         return cy.get('.c-sk-modal_footer_actions > .c-button--primary')
     }
 }

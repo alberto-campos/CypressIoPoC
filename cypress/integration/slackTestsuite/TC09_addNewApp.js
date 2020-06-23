@@ -4,6 +4,7 @@
 /// <reference types="cypress" />
 import slackHomePg from '../../support/pageObjects/slackHomePg'
 import manageAppsPg from '../../support/pageObjects/manageAppsPg'
+import loginPg from '../../support/pageObjects/loginPg'
 
 describe('TC09 Add New App',function(){
 
@@ -16,21 +17,21 @@ describe('TC09 Add New App',function(){
     it('Add New App',function(){
         const homePg = new slackHomePg()
         const mngAppPg = new manageAppsPg()
+        const loginPage = new loginPg()
 
         //Login into Slack
         var url = Cypress.env('url1')
         cy.visit(url)
-        cy.slackLoggingIn(this.data.email,this.data.password)
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
 
         //Team Menu Page
-        homePg.getTeamHeaderMenu().click()
-        cy.searchTeamMenu('Settings & administration')
-        cy.searchTeamSubMenu('Manage apps')
-        //cy.visit(url+'/apps/manage?utm_source=in-prod&utm_medium=inprod-apps_link-slack_menu-click')
+        homePg.teamHeaderMenu.click()
+        homePg.searchTeamMenu('Settings & administration')
+        homePg.searchTeamSubMenu('Manage apps')
 
         //Search Microsoft One Drive App and Add to Slack
-        mngAppPg.getAppsSrchInput().type('Microsoft One Drive')
-        mngAppPg.getMicrosoftAppCard().click()
-        mngAppPg.getAddToSlackBtn().should('be.visible')
+        mngAppPg.appsSrchInput.type('Microsoft One Drive')
+        mngAppPg.microsoftAppCard.click()
+        mngAppPg.addToSlackBtn.should('be.visible')
     })
 })

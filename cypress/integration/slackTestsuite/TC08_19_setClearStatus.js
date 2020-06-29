@@ -1,12 +1,13 @@
 /* 
 * TC 08 - Set and clear status - Slack user set the status as "in a meeting" for next 4 hours.
+* TC 19 - Edit Status - Users are able to set a status
 * Test Data needs reset.
 */
 /// <reference types="cypress" />
 import slackHomePg from '../../support/pageObjects/slackHomePg'
 import statusPg from '../../support/pageObjects/statusPg'
 import loginPg from '../../support/pageObjects/loginPg'
-describe('TC08 Set and Clear Status',function(){
+describe('Set and Clear Status',function(){
 
     before(function(){
         cy.fixture('TC01').then(function(data){
@@ -14,7 +15,7 @@ describe('TC08 Set and Clear Status',function(){
         })
     })
 
-    it('Set and Clear Status',function(){
+    it('TC 08 & 19 - Set and Clear Status',function(){
         const homePg = new slackHomePg()
         const statusPage = new statusPg()
         const loginPage = new loginPg()

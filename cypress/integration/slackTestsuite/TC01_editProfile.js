@@ -13,7 +13,7 @@ const homePg = new slackHomePg()
 const profile_Pg = new profilePg()
 const acctSetting_Pg = new acctSettingsPg()
 
-describe('TC01 Edit Profile',function(){
+describe('Edit Profile',function(){
     before(function(){
         cy.fixture('TC01').then(function(data){
         this.data = data    
@@ -26,7 +26,7 @@ describe('TC01 Edit Profile',function(){
         loginPage.slackLoggingIn(this.data.email,this.data.password)
     })
 
-    it('Edit Profile',function(){
+    it('TC 01 - Edit Profile',function(){
         //Slack Home 
         homePg.teamHeaderMenu.click()
         homePg.searchTeamMenu('View profile')
@@ -37,7 +37,7 @@ describe('TC01 Edit Profile',function(){
         }))
         profile_Pg.memberProfileMoreBtn.click()
         profile_Pg.accountSettingsMenuItem.then(href => {
-        cy.visit(Cypress.env('url1')+'/account/settings')
+         cy.visit(Cypress.env('url1')+'/account/settings')
         })
         
         //Account Settings Pg - Change Password

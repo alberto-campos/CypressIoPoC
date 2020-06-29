@@ -25,7 +25,7 @@ class adminPg extends baseTest{
      * @returns {String} element locator
      */
     get adminMemberTblBtn(){
-       return cy.get('[data-qa^="admin_member_table_menu_btn-"]')
+       return cy.get('[data-qa^="admin_member_table_menu_btn-"]').eq(0)
     }
 
     /**
@@ -41,7 +41,7 @@ class adminPg extends baseTest{
      * @returns {String} element locator
      */
     get resendInvitationOption(){
-        return cy.get('div.c-menu_item__li>button').eq(1)
+        return cy.get('[data-qa="resend_invitation"]')
     }
 
     /**
@@ -49,15 +49,23 @@ class adminPg extends baseTest{
      * @returns {String} element locator
      */
     get revokeInvitationOption(){
-        return cy.get('div.c-menu_item__li>button').eq(3)
+        return cy.get('[data-qa="deactivate"]')
     }
 
-     /**
+    /**
      * returns locator for Admin member list table menu option: Activate Account
      * @returns {String} element locator
      */
     get activateAccountOption(){
-        return cy.get('div.c-menu_item__li>button').eq(0)
+        return cy.get('[data-qa="activate"]')
+    }
+
+    /**
+     * returns locator for Admin member list table menu option: Change account type
+     * @returns {String} element locator
+     */
+    get chngeAccountTypeOption(){
+        return cy.get('[data-qa="change_account_type"]')
     }
 
     /**
@@ -113,7 +121,7 @@ class adminPg extends baseTest{
      * @returns {String} element locator
      */
     get changeAcctType_SaveBtn(){
-        return cy.get('button[data-qa="change_account_type_save_btn"]',{timeout:5000}).contains('Save')
+        return cy.get('button[data-qa="change_account_type_save_btn"]').contains('Save')
     }
 
     /**
@@ -142,9 +150,18 @@ class adminPg extends baseTest{
 
     /**
      * returns spinning wheel for admin member table view
+     * @returns {String} element locator
      */
     get tableViewLoadingSpinner(){
         return cy.get('c-table_view_spinner_overlay',{timeout: 10000})
+    }
+
+    /**
+     * returns toast wrapper text which appears on actiavtion or deactivation of account in admin member table view
+     * @returns {String} element locator
+     */
+    get toastWrapper(){
+        return cy.get('.c-toast__wrapper')
     }
 
 }

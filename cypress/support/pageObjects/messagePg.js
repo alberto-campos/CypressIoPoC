@@ -47,6 +47,10 @@ class messagePg extends baseTest{
         return cy.get('div.c-message_kit__hover').last()
     }
 
+    get secondLastMsg(){
+        return cy.get('[data-qa="virtual-list-item"]:nth-last-child(-n+2)').last()
+    }
+
     /**
      * returns a locator for message shortcuts->More ACtions button
      * @returns {String} element locator
@@ -104,10 +108,109 @@ class messagePg extends baseTest{
     }
 
     /**
-     * Sends message to a user directly or on channel
+     * returns a locator for search for the message input
+     * @returns {String} element locator
      */
-    sendMessage(){
-        this.msgInput.type('Hi,This is an automated message.Have a nice day!')
+    get srchMsgInput(){
+        return cy.get('[data-qa="top_nav_search"]')
+    }
+
+    /**
+     * returns a locator for search autocomplete suggestion list
+     * @returns {String} element locator
+     */
+    get srchSuggestionList(){
+        return cy.get('#c-search_autocomplete__suggestion_list')
+    }
+
+    /**
+     * returns a locator/ list of locators for search results
+     * @returns {String} element locator
+     */
+    get srchResults(){
+        return cy.get('.ReactModal__Content > :nth-child(1)')
+    }
+
+    /**
+     * returns  a locator for channel name displayed on top corner of any conversation
+     * @returns {String} element locator
+     */
+    get channelNameOfConversation(){
+        return cy.get('[data-qa="channel_name"]')
+    }
+
+    // File upload related objects
+    /**
+     * returns a locator for send text button on conversations
+     * @returns {String} element locator
+     */
+    get sendTxtBtn(){
+        return  cy.get('[data-qa="texty_send_button"]')
+    }
+
+    /**
+     * returns a locator for mesage meta text displayed near message on conversations
+     * @returns {String} element locator
+     */
+    get messageMetaText(){
+        return cy.get('.c-message_kit__file__meta__text > span')
+    }
+
+    //Add reaction related objects
+    /**
+     * returns a locator for 'add reaction' button displayed when mouseover on any message.
+     * @returns {String} element locator
+     */
+    get addReactionBtn(){
+        return cy.get('[data-qa="add_reaction_action"]')
+    }
+
+    /**
+     * returns a locator for emoji pickover popup displayed when clicked on Add reaction button on any message.
+     * @returns {String} element locator
+     */
+    get emojiPickerPopover(){
+        return cy.get('[data-qa="emoji-picker"]')
+    }
+
+    /**
+     * returns a locator for grinning emoji displayed when clicked on Add reaction button on any message.
+     * @returns {String} element locator
+     */
+    get grinningEmoji(){
+        return cy.get('button[aria-label="grinning emoji"]').eq(0)
+    }
+
+    /**
+     * returns a locator for reacted emoji on any message.
+     * @returns reactedEmoji{String} element locator
+     */
+    get reactedEmoji(){
+        return cy.get('[data-qa="reactji"]').eq(0)
+    }
+
+    /**
+     * returns a locator for 'add emoji' button for messagee.
+     * @returns {String} element locator
+     */
+    get addEmojiBtn(){
+        return cy.get('[data-qa="texty_emoji_button"]')
+    }
+
+    /**
+     * returns a locator for recent emoji message in the conversation.
+     * @returns {String} element locator
+     */
+    get emojiMessage(){
+        return cy.get('.p-rich_text_section > .c-emoji').last()
+    }
+
+    /**
+     * Sends message to a user directly or on channel
+     * @param {String} msg - message to be sent
+     */
+    sendMessage(msg){
+        this.msgInput.type(msg)
         this.msgInput.type('{enter}')
     }
 
@@ -116,29 +219,24 @@ class messagePg extends baseTest{
      * Message is appended with alphanumeric string returned by randomTextGenerator() function to generate new edited message and sent 
      * again to a user or channel
      */
-    editMessage() {
-            this.mostRecentMsg.trigger('mouseover') //MouseHover on last message
-            this.moreActions.click() //click on more actions
+    editMessage(msg) {
+            cy.wait(1000)
+            this.mostRecentMsg.should('contain',msg).trigger('mouseover') //MouseHover on last message
+            this.moreActions.should('be.visible').click() //click on more actions
             this.editMessageOption.click() 
             var editStr = helpUtil.randomTextGenerator()
             this.editMsgInput.type(editStr)  //appending msg with random value
             this.saveChangesBtn.click()
 
             //Verify Edited Message
-            this.mostRecentMsg.invoke('text').then((text => {
-            expect(text.trim()).to.contain('Hi,This is an automated message.Have a nice day!'+editStr)
-            }))
+            this.mostRecentMsg.should('contain',editStr)
     }
 
     /**
      * Deletes the most recent message in the conversation of a  user or Direct channel
      */
     deleteMessage(){
-        /*cy.server()
-        cy.route({
-            method:'DEPOSTLETE',
-            url: '/api/chat.delete'
-        }).as('deleteMsg')*/
+        cy.wait(1000)
         this.mostRecentMsg.trigger('mouseover') //MouseHover on last message
         cy.waitForElementToBeVisible(this.MoreActions)
         this.moreActions.click()  //click on more actions
@@ -150,15 +248,8 @@ class messagePg extends baseTest{
             msgToDelete = deleteMsg.text()
         })
         this.deleteBtn.click() //click on delete message  
-        cy.wait(2000)
-        /*cy.wait('@deleteMsg') 
-        cy.get('@deleteMsg').then((xhr)=>{
-            expect(xhr.status).to.eq(200)
-        }) */ 
-        
-        this.mostRecentMsg.then(function(msgLocator){
-            expect(msgLocator.text()).to.not.contain(msgToDelete)
-        })
+        this.deleteBtn.should('not.exist')
+        this.mostRecentMsg.should('not.contain',msgToDelete)
     }
 
     /**

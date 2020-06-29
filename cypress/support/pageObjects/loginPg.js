@@ -28,6 +28,14 @@ class loginPg extends baseTest{
     }
 
     /**
+     * returns the element locator for the Sign In here for org owners
+     * @returns {String} element locator
+     */
+    get signInHereLinkforOrgOwners(){
+        return cy.get('[data-qa="org_owner_signin_link"]')
+    }
+
+    /**
      * Login into slack application
      * @param {String} userName - valid userName of slack.
      * @param {String} pwd - valid password for the user.
@@ -38,6 +46,5 @@ class loginPg extends baseTest{
         this.password.type(pwd)
         this.signInBtn.click({ force: true })
     }
-
 }
 export default loginPg;

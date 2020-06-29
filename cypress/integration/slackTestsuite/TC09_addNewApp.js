@@ -6,7 +6,7 @@ import slackHomePg from '../../support/pageObjects/slackHomePg'
 import manageAppsPg from '../../support/pageObjects/manageAppsPg'
 import loginPg from '../../support/pageObjects/loginPg'
 
-describe('TC09 Add New App',function(){
+describe('Add New App',function(){
 
     before(function(){
         cy.fixture('TC01').then(function(data){
@@ -14,7 +14,7 @@ describe('TC09 Add New App',function(){
         })
     })
     
-    it('Add New App',function(){
+    it('TC 09 - Add New App',function(){
         const homePg = new slackHomePg()
         const mngAppPg = new manageAppsPg()
         const loginPage = new loginPg()

@@ -77,6 +77,14 @@ class channelPg extends baseTest{
     }
 
     /**
+     * returns a locator for 'skip for now' Button
+     *  @returns {String} element locator
+     */
+    get skipForNowBtn(){
+        return cy.get('[data-qa="invite_to_workspace_skip_button"]')
+    }
+
+    /**
      * returns a locator for channel named 'welcome'
      *  @returns {String} element locator
      */
@@ -119,19 +127,100 @@ class channelPg extends baseTest{
 
     /**
      * returns a locator for loading indicator which appears while adding a member to the channel
+     *  @returns {String} element locator
      */
     get loadingStatusMsg(){
         return cy.get('.c-select_options_list__loading_state_message')
     }
 
     /**
+     * returns a locator for channel details button on Channel page
+     *  @returns {String} element locator
+     */
+    get channelDetailIcon(){
+        return cy.get('[data-qa="channel-details"]')
+    }
+
+    /**
+     * returns a locator for channel details  - More actions button on Channel page
+     *  @returns {String} element locator
+     */
+    get channelDetailsMoreBtn(){
+        return cy.get('[data-qa="channel-details-action"]')
+    }
+
+    /**
+     * returns a locator for channel details  - More actions button on Channel page
+     *  @returns {String} element locator
+     */
+    get channelAdditionalOptionsBtn(){
+        return cy.get('[data-qa="menu_item_button"]').contains('Additional options')
+    }
+
+    /**
+     * returns a locator for channel call button on Channel page
+     *  @returns {String} element locator
+     */
+    get channelCallBtn(){
+        return cy.get('[data-qa="call"]')
+    }
+
+    /**
+     * returns a locator for start call button on Channel page
+     *  @returns {String} element locator
+     */
+    get startCallBtn(){
+        return cy.get('.c-button--primary').contains('Start Call')
+    }
+
+    //---------------locators for External Shared channel------------------------------------------------------
+    /**
+     * returns a locator for 'Share Channel' button
+     *  @returns {String} element locator
+     */
+    get shareChannelBtn(){
+        return cy.get('[data-qa="options-list-share-external"]')
+    }
+
+    /**
+     * returns a locator for 'Share Channel' button on Share channel dialogue
+     *  @returns {String} element locator
+     */
+    get shareChannelBtn2(){
+        return cy.get('.c-button').contains('Share Channel')
+    }
+
+    /**
+     * returns a locator for 'Add email address' input on Share channel dialogue
+     *  @returns {String} element locator
+     */
+    get emailInputforChannelShare(){
+        return cy.get('[data-qa="email_tokenizer_input-input"]')
+    }
+
+    /**
+     * returns a locator for 'send' button for input  email on Share channel dialogue
+     *  @returns {String} element locator
+     */
+    get sharedChannelSendBtn(){
+        return cy.get('[data-qa="shared_channel_modal_send_button]')
+    }
+
+    /**
+     * returns a locator for 'success/done' button on Share channel dialogue
+     *  @returns {String} element locator
+     */
+    get sharedChannelSuccessBtn(){
+        return cy.get('[data-qa="shared_channel_modal_send_button"]')
+    }
+    //------------------------Functions for channel page-------------------------------------------------------------
+    /**
      * Deletes the given channel.
      * @param {String} channelName - channel to be deleted
      */
     deleteChannel(channelName) {
         var channelLocator = "span[data-qa='channel_sidebar_name_"+channelName+"']"
-        cy.log(channelLocator)
-        cy.get(channelLocator).rightclick()
+        cy.get(channelLocator).scrollIntoView().rightclick()
         this.additionalOptionsChannel.click()
         this.deleteChannelOption.click()
         this.deleteChkbox.click()

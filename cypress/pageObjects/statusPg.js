@@ -1,8 +1,7 @@
 /**
  * This class refers to objects relevant to Member Status changes
  */
-import baseTest from '../baseTest'
-class statusPg extends baseTest{
+class statusPg {
     /**
      * returns a locator for team menu status
      * @returns {String} element locator

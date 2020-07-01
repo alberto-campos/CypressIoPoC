@@ -1,9 +1,7 @@
 /**
  * This class refers to objects of Landing page for Slack login
  */
-import baseTest from '../baseTest'
-
-class slackHomePg extends baseTest{
+class slackHomePg {
     /**
      * returns an element locator for team menu sidebar icon
      * @returns {String} element locator

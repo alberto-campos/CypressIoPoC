@@ -1,29 +1,28 @@
 /* 
 * TC 08 - Set and clear status - Slack user set the status as "in a meeting" for next 4 hours.
 * TC 19 - Edit Status - Users are able to set a status
-* Test Data needs reset.
+* TestData does not need reset. 
 */
 /// <reference types="cypress" />
-import slackHomePg from '../../support/pageObjects/slackHomePg'
-import statusPg from '../../support/pageObjects/statusPg'
-import loginPg from '../../support/pageObjects/loginPg'
-describe('Set and Clear Status',function(){
+import {loginPg,slackHomePg,statusPg}  from '../../pageObjects'
 
-    before(function(){
-        cy.fixture('TC01').then(function(data){
-        this.data = data    
-        })
+const loginPage = new loginPg()
+const homePg = new slackHomePg()
+const statusPage = new statusPg()
+
+before(function(){
+    cy.fixture('TC01').then(function(data){
+         this.data = data    
+     })
+})
+
+describe('User',function(){    
+    beforeEach(function(){
+        cy.visit(Cypress.env('url1'))
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
     })
 
     it('TC 08 & 19 - Set and Clear Status',function(){
-        const homePg = new slackHomePg()
-        const statusPage = new statusPg()
-        const loginPage = new loginPg()
-
-        //Login into Slack
-        cy.visit(Cypress.env('url1'))
-        loginPage.slackLoggingIn(this.data.email,this.data.password)
-
         //Team Menu Page
         homePg.teamHeaderMenu.click()
         statusPage.teamMenuStatus.click()
@@ -48,6 +47,5 @@ describe('Set and Clear Status',function(){
         homePg.teamHeaderMenu.click()
         homePg.searchTeamMenu('Clear status')
         statusPage.calenderIcon.should('not.be.visible')
-
     })
 })

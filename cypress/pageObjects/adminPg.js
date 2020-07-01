@@ -1,9 +1,7 @@
 /**
  * This page refers to 'Settings & Administration->Manage Members' objects in Team Menu
  */
-import baseTest from '../baseTest'
-
-class adminPg extends baseTest{
+class adminPg {
     /**
      * returns locator for manage member dialog header text
      * @returns {String} element locator
@@ -117,11 +115,27 @@ class adminPg extends baseTest{
     }
 
     /**
+     * returns locator for checkbox for member as a single channel guest
+     * @returns {String} element locator
+     */
+    get memberAsSingleChannelGuestChkbox(){
+        return cy.get('#change-account-type-scg')
+    }
+
+    /**
+     * returns locator for checkbox for member as a multi channel guest
+     * @returns {String} element locator
+     */
+    get memberAsMultiChannelGuestChkbox(){
+        return cy.get('#change-account-type-mcg')
+    }
+
+    /**
      * returns locator for Save button displayed while selecting account type
      * @returns {String} element locator
      */
     get changeAcctType_SaveBtn(){
-        return cy.get('button[data-qa="change_account_type_save_btn"]').contains('Save')
+        return cy.get('[data-qa="change_account_type_save_btn"]')
     }
 
     /**
@@ -163,6 +177,5 @@ class adminPg extends baseTest{
     get toastWrapper(){
         return cy.get('.c-toast__wrapper')
     }
-
 }
 export default adminPg;

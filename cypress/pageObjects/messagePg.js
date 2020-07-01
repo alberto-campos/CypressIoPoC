@@ -1,12 +1,11 @@
 /**
  * This class refers to all objects wrt send message, edit message , delete message etc.
  */
-import baseTest from '../baseTest'
-import helper from '../baseTest'
+import helper from '../support/helper'
 
 const helpUtil = new helper()
 
-class messagePg extends baseTest{
+class messagePg {
     /**
      * returns a locator Direct Messages dialog header text
      * @returns {String} element locator
@@ -116,19 +115,27 @@ class messagePg extends baseTest{
     }
 
     /**
-     * returns a locator for search autocomplete suggestion list
+     * returns a locator for first search suggestion
      * @returns {String} element locator
      */
-    get srchSuggestionList(){
-        return cy.get('#c-search_autocomplete__suggestion_list')
+    get firstSearchSuggestion(){
+        return cy.get('[data-id="c-search_autcomplete__suggestion_0"]')
     }
 
     /**
-     * returns a locator/ list of locators for search results
+     * returns a locator for search spinning wheel
      * @returns {String} element locator
      */
-    get srchResults(){
-        return cy.get('.ReactModal__Content > :nth-child(1)')
+    get srchSpinningWheel(){
+        return cy.get('.c-infinite_spinner__tail')
+    }
+
+     /**
+     * returns a locator for first occurance of search result
+     * @returns {String} element locator
+     */
+    get firstSearchResult(){
+        return cy.get(':nth-child(1) > .c-message_group > .c-search_message')
     }
 
     /**

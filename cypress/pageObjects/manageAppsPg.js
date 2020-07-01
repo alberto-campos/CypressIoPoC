@@ -1,8 +1,7 @@
 /**
  * This Class refers to 'Settings and Administration->Manage apps' page
  */
-import baseTest from '../baseTest'
-class manageAppsPg extends baseTest{
+class manageAppsPg {
     /**
      * returns a locator for App Search textbox
      * @returns {String} element locator

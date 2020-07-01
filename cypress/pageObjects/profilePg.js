@@ -1,8 +1,7 @@
 /**
  * This class refers to Team menu->View profile related objects.
  */
-import baseTest from '../baseTest'
-class profilePg extends baseTest{
+class profilePg {
     /**
      * returns a locator for text displayed on header of the Profile Window
      * @returns {String} element locator

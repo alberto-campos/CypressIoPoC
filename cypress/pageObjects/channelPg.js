@@ -1,9 +1,7 @@
 /**
  * This class refers to all the activities wrt Channels. E.g. Craete Channel
  */
-import baseTest from '../baseTest'
-
-class channelPg extends baseTest{
+class channelPg {
     /**
      * returns a locator for 'add channels' plus icon
      * @returns {String} element locator
@@ -203,7 +201,7 @@ class channelPg extends baseTest{
      *  @returns {String} element locator
      */
     get sharedChannelSendBtn(){
-        return cy.get('[data-qa="shared_channel_modal_send_button]')
+        return cy.get('[data-qa="shared_channel_modal_send_button"]')
     }
 
     /**
@@ -211,7 +209,7 @@ class channelPg extends baseTest{
      *  @returns {String} element locator
      */
     get sharedChannelSuccessBtn(){
-        return cy.get('[data-qa="shared_channel_modal_send_button"]')
+        return cy.get('.c-button').eq(0)
     }
     //------------------------Functions for channel page-------------------------------------------------------------
     /**

@@ -1,15 +1,9 @@
 /* 
 * TC 02 - create new channel. - Existing Slack user is able to create new private as well as public channels and invite the people. 
-* TC 05 - send messages to channel
-* TC 15 - Users are able to start a channel call via the call button
-* TC 17 - User should be able to send a message then edit the same
-* TestData needs reset. - TC02
+* TestData needs reset. 
 */
 /// <reference types="cypress" />
-import channelPg from '../../support/pageObjects/channelPg'
-import messagePg from '../../support/pageObjects/messagePg'
-import loginPg from '../../support/pageObjects/loginPg'
-import helperPg from '../../support/helper'
+import {loginPg,channelPg,messagePg}  from '../../pageObjects'
 import helper from '../../support/helper'
 
 const loginPage = new loginPg()
@@ -18,17 +12,20 @@ const msgPg = new messagePg()
 const helpUtil = new helper()
 var channelName
 
+before(function(){
+    cy.fixture('TC01').then(function(data){
+         this.data = data    
+     })
+})
+
 describe('Channel',function(){    
+   
     beforeEach(function(){
-       cy.fixture('TC01').then(function(data){
-            this.data = data    
-        })
+        cy.visit(Cypress.env('url1'))
+        loginPage.slackLoggingIn(this.data.email,this.data.password)
     })
 
     it('TC 02 - Create New Channel',function(){
-        cy.visit(Cypress.env('url1'))
-        loginPage.slackLoggingIn(this.data.email,this.data.password)
-        
         //Create New Channel
         channelPage.addChannelsPlusIcon.click()
         channelPage.createChannel.click()
@@ -63,36 +60,8 @@ describe('Channel',function(){
         msgPg.mostRecentMsg.should('contain','was added to #'+channelName+' by Shweta Bet.')
     })
 
-    it('TC 05 & 17 - Sending Messages to Channel',function(){
-        cy.visit(Cypress.env('url1'))
-        loginPage.slackLoggingIn(this.data.email,this.data.password)
-
-        //Click on any channel from the list of existing channels
-        var msgToBeSent = 'This is an automated message '+helpUtil.randomTextGenerator()
-        channelPage.welcomeChannel.click()
-        msgPg.sendMessage(msgToBeSent)
-        msgPg.mostRecentMsg.should('contain',msgToBeSent)
-        //Edit message
-        msgPg.editMessage(msgToBeSent)
-        //delete message
-        msgPg.deleteMessage()
-    })
-
-    it('TC 15 - channel call',function(){
-        cy.visit(Cypress.env('url1'))
-        loginPage.slackLoggingIn(this.data.email,this.data.password)
-
-        //Click on any channel from the list of existing channels
-        channelPage.welcomeChannel.click()
-
-        //Open the channel details& click on a phone icon to start a call
-        channelPage.channelDetailIcon.click()
-        channelPage.channelCallBtn.should('be.visible')
-        //channelPage.startCallBtn.should('be.visible')
-    })
-
     after(function(){
-        //Delete the channel that is created above as a part of data cleaning
+        //Delete the channel that is created above as a part of data reset
         channelPage.deleteChannel(channelName)
     })
 })

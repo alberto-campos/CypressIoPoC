@@ -1,8 +1,8 @@
 /**
  * This class refers to reusable functions/commands specific to Slack application
  */
-    import adminPg from '../support/pageObjects/adminPg'
-    import slackHomePg from '../support/pageObjects/slackHomePg'
+    import adminPg from '../pageObjects/adminPg'
+    import slackHomePg from '../pageObjects/slackHomePg'
     import 'cypress-file-upload';
 
     const homePg = new slackHomePg()
@@ -62,7 +62,32 @@
                                         .should('have.length',1)
                 //Verify that account type is changed to Workspace admin
                 adminPage.memberAcctType.should('contain','Full Member') 
-              }    
+              }
+              else if(acctType.includes('Single-Channel Guest')){
+                adminPage.adminMemberTblBtn.click()
+                adminPage.chngeAccountTypeOption.click()
+                adminPage.memberAsSingleChannelGuestChkbox.click()
+                adminPage.changeAcctType_SaveBtn.click()
+                adminPage.changeAcctType_SaveBtn.click()
+                adminPage.changeAcctType_SaveBtn.should('not.exist')
+                adminPage.memberEmailLocator.should('contain',member)
+                                        .should('have.length',1)
+                //Verify that account type is changed to Workspace admin
+                adminPage.memberAcctType.should('contain','Single-Channel Guest') 
+              }
+              else if(acctType.includes('Multi-Channel Guest')){
+                adminPage.adminMemberTblBtn.click()
+                adminPage.chngeAccountTypeOption.click()
+                adminPage.memberAsMultiChannelGuestChkbox.click()
+                adminPage.changeAcctType_SaveBtn.click()
+                adminPage.changeAcctType_SaveBtn.click()
+                adminPage.changeAcctType_SaveBtn.should('not.exist')
+                adminPage.memberEmailLocator.should('contain',member)
+                                        .should('have.length',1)
+                //Verify that account type is changed to Workspace admin
+                adminPage.memberAcctType.should('contain','Multi-Channel Guest') 
+              }
+
           }//if(memberMail.includes(this.data.userForTC10)) ends
       })
     })

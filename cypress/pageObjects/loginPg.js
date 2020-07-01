@@ -1,8 +1,7 @@
-import baseTest from '../baseTest'
 /**
  * This class refers to objects of Landing page for Slack login
  */
-class loginPg extends baseTest{
+class loginPg {
     /**
      * returns the element locator for the email field
      * @returns {String} element locator

@@ -1,8 +1,7 @@
-import baseTest from '../baseTest'
 /**
  * This class refers to Account Settings related objects
  */
- class acctSettingsPg extends baseTest{
+ class acctSettingsPg {
     /**
      * returns a locator for 'expand' button related to change password
      * @returns {String} element locator

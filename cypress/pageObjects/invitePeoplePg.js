@@ -1,9 +1,7 @@
 /**
  * This class refers to objects of 'Invite People' functionality
  */
-import baseTest from '../baseTest'
-
-class invitePeoplePg extends baseTest{
+class invitePeoplePg {
     /**
      * returns a locator for 'email' input box of member to be invited
      * @returns {String} element locator

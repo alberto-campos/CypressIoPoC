@@ -1,10 +1,7 @@
 /**
  * This class refers to Sign out page of Slack Application
  */
-
-import baseTest from '../baseTest'
-
-class signOutPg extends baseTest{
+class signOutPg {
     /**
      * returns a locator for entire help page displayed
      * @returns {String} elementlocator

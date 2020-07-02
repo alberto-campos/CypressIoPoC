@@ -23,11 +23,7 @@ describe('Org Admin',function(){
     })
 
     it('TC 18 - Org admin',function(){
-        //Sign into an organization as an Org Admin
-        cy.visit(Cypress.env('url3'))
-        loginPage.signInHereLinkforOrgOwners.click()
-        loginPage.slackLoggingIn(this.data.orgAdmin,this.data.orgAdminPwd)
-
+    
          // Launch workspace
          cy.get("[data-qa='launch']").eq(1).should('exist').then(href => {
             cy.visit('https://app.slack.com/client/TTH0TUV8Q/CTGGW2EQ4')

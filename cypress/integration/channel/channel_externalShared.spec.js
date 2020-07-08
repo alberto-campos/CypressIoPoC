@@ -43,7 +43,6 @@ describe('Channel',function(){
         channelPage.shareChannelBtn.should('be.visible').click()
 
         //share channel dialogue
-        channelPage.shareChannelBtn2.should('be.visible').click()
         channelPage.emailInputforChannelShare.should('be.visible').type('lgontijo+b4@slack-corp.com')
         channelPage.sharedChannelSendBtn.click()
         channelPage.sharedChannelSendBtn.should('not.be.visible')

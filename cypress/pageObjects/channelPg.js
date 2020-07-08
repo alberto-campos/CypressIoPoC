@@ -185,7 +185,7 @@ class channelPg {
      *  @returns {String} element locator
      */
     get shareChannelBtn2(){
-        return cy.get('.c-button').contains('Share Channel')
+        return cy.get('.c-button').contains('Share channel')
     }
 
     /**
